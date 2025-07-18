@@ -1,19 +1,18 @@
-// Initialize map centered at Burj Khalifa
 const map = L.map('map').setView([25.1972, 55.2744], 15);
 
-// Tile layer from OpenStreetMap
+// Add OpenStreetMap tiles
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   maxZoom: 19,
   attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
-// Add marker for Burj Khalifa
+// Add Burj Khalifa marker
 const burjKhalifa = L.marker([25.1972, 55.2744])
   .addTo(map)
   .bindPopup('<b>Burj Khalifa</b><br>World\'s tallest building.')
   .openPopup();
 
-// Famous POIs
+// Define POIs clearly
 const pois = [
   {
     name: "The Dubai Mall",
@@ -35,7 +34,7 @@ const pois = [
   }
 ];
 
-// Routing control (will be updated on marker click)
+// Routing control
 let routeControl = L.Routing.control({
   waypoints: [],
   routeWhileDragging: false,
@@ -44,7 +43,7 @@ let routeControl = L.Routing.control({
   show: false
 }).addTo(map);
 
-// Add POI markers and click handlers
+// Add POI markers
 pois.forEach(poi => {
   const marker = L.marker([poi.lat, poi.lng]).addTo(map);
   marker.bindPopup(`<b>${poi.name}</b><br>${poi.info}`);
