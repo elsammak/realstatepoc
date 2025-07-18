@@ -1,57 +1,47 @@
-const map = L.map('map').setView([25.1972, 55.2744], 15);
+// Initialize map
+const map = L.map('map').setView([25.1972, 55.2744], 14); // Burj Khalifa
 
-// Add OpenStreetMap tiles
+// Add tile layer
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '© OpenStreetMap contributors'
+  attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Add Burj Khalifa marker
+// Burj Khalifa marker
 const burjKhalifa = L.marker([25.1972, 55.2744])
   .addTo(map)
-  .bindPopup('<b>Burj Khalifa</b><br>World\'s tallest building.')
+  .bindPopup("<b>Burj Khalifa</b><br>The tallest building in the world.")
   .openPopup();
 
-// Define POIs clearly
+// Sample POIs
 const pois = [
   {
-    name: "The Dubai Mall",
-    lat: 25.1984,
-    lng: 55.279,
-    info: "The world's largest shopping mall."
-  },
-  {
-    name: "Dubai Fountain",
-    lat: 25.195,
-    lng: 55.275,
-    info: "The world's largest choreographed fountain system."
+    name: "Dubai Mall",
+    coords: [25.1985, 55.2795],
+    info: "One of the world's largest malls."
   },
   {
     name: "Dubai Opera",
-    lat: 25.192,
-    lng: 55.275,
-    info: "A modern performing arts center."
+    coords: [25.1935, 55.2772],
+    info: "Cultural and performance center."
+  },
+  {
+    name: "Souk Al Bahar",
+    coords: [25.1952, 55.2771],
+    info: "Shopping and dining spot near Burj Khalifa."
   }
 ];
 
-// Routing control
-let routeControl = L.Routing.control({
-  waypoints: [],
-  routeWhileDragging: false,
-  addWaypoints: false,
-  draggableWaypoints: false,
-  show: false
-}).addTo(map);
-
-// Add POI markers
+// Draw POIs and connect to Burj Khalifa
 pois.forEach(poi => {
-  const marker = L.marker([poi.lat, poi.lng]).addTo(map);
+  const marker = L.marker(poi.coords).addTo(map);
   marker.bindPopup(`<b>${poi.name}</b><br>${poi.info}`);
+  
   marker.on('click', () => {
-    routeControl.setWaypoints([
-      burjKhalifa.getLatLng(),
-      marker.getLatLng()
-    ]);
-    marker.openPopup();
+    // Draw a route (polyline)
+    L.polyline([burjKhalifa.getLatLng(), poi.coords], {
+      color: 'blue',
+      weight: 2,
+      dashArray: '4'
+    }).addTo(map);
   });
 });
