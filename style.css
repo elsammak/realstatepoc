@@ -8,6 +8,6 @@ body {
     width: 100vw;
 }
 
-.leaflet-marker-icon {
-    filter: hue-rotate(120deg);
+img.leaflet-marker-icon {
+    filter: hue-rotate(280deg) !important;
 }

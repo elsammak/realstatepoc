@@ -20,16 +20,18 @@ var control = L.Routing.control({
         L.latLng(mainBuilding.getLatLng()),
         L.latLng(25.1984, 55.279)
     ],
-    routeWhileDragging: true
+    routeWhileDragging: true,
+    addWaypoints: false,
+    draggableWaypoints: false
 }).addTo(map);
 
 pois.forEach(function(poi) {
-    var marker = L.marker([poi.lat, poi.lng], {draggable: true}).addTo(map)
+    var marker = L.marker([poi.lat, poi.lng]).addTo(map)
         .bindPopup('<b>' + poi.name + '</b><br>' + poi.info);
-    marker.on('click', function(event) {
+    marker.on('click', function() {
         control.setWaypoints([
             mainBuilding.getLatLng(),
-            event.latlng
+            marker.getLatLng()
         ]);
         marker.openPopup();
     });
