@@ -1,17 +1,18 @@
-var map = L.map('map').setView([26.2172, 50.1971], 13);
+var map = L.map('map').setView([25.1972, 55.2744], 14);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-var mainBuilding = L.marker([26.2172, 50.1971]).addTo(map)
-    .bindPopup('Burj')
+var mainBuilding = L.marker([25.1972, 55.2744]).addTo(map)
+    .bindPopup('Burj Khalifa')
     .openPopup();
 
 var pois = [
-    { name: "Mall of Dhahran", lat: 26.22, lng: 50.2, info: "A large shopping mall" },
-    { name: "Al Rashid Mall", lat: 26.21, lng: 50.19, info: "Another popular shopping mall" }
+    { name: "The Dubai Mall", lat: 25.1984, lng: 55.279, info: "The world's largest mall." },
+    { name: "Dubai Fountain", lat: 25.195, lng: 55.275, info: "The world's largest choreographed fountain system." },
+    { name: "Dubai Opera", lat: 25.192, lng: 55.275, info: "A multi-format, performing arts centre." }
 ];
 
 pois.forEach(function(poi) {
