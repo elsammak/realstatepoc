@@ -27,7 +27,10 @@ pois.forEach(function(poi) {
     var marker = L.marker([poi.lat, poi.lng], {draggable: true}).addTo(map)
         .bindPopup('<b>' + poi.name + '</b><br>' + poi.info);
     marker.on('click', function(event) {
-        control.spliceWaypoints(control.getWaypoints().length - 1, 1, event.latlng);
+        control.setWaypoints([
+            mainBuilding.getLatLng(),
+            event.latlng
+        ]);
         marker.openPopup();
     });
 });
