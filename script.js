@@ -15,15 +15,19 @@ var pois = [
     { name: "Dubai Opera", lat: 25.192, lng: 55.275, info: "A multi-format, performing arts centre." }
 ];
 
+var control = L.Routing.control({
+    waypoints: [
+        L.latLng(mainBuilding.getLatLng()),
+        L.latLng(25.1984, 55.279)
+    ],
+    routeWhileDragging: true
+}).addTo(map);
+
 pois.forEach(function(poi) {
-    var marker = L.marker([poi.lat, poi.lng]).addTo(map)
+    var marker = L.marker([poi.lat, poi.lng], {draggable: true}).addTo(map)
         .bindPopup('<b>' + poi.name + '</b><br>' + poi.info);
-    marker.on('click', function() {
-        L.Routing.control({
-            waypoints: [
-                L.latLng(mainBuilding.getLatLng()),
-                L.latLng(poi.lat, poi.lng)
-            ]
-        }).addTo(map);
+    marker.on('click', function(event) {
+        control.spliceWaypoints(control.getWaypoints().length - 1, 1, event.latlng);
+        marker.openPopup();
     });
 });
